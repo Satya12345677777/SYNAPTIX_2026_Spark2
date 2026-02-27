@@ -38,6 +38,18 @@ export default function Login() {
 
     setIsLoading(true);
 
+    // Check network connectivity
+    if (!navigator.onLine) {
+      toast({
+        title: "No Internet Connection",
+        description: "Please check your internet connection and try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
       console.log("Attempting login with phone:", phone);
       await signIn({ phone, pin });
@@ -53,8 +65,8 @@ export default function Login() {
     } catch (error: unknown) {
       console.error("Login error details:", error);
 
-      let errorMessage = "Invalid credentials. Please try again.";
-      const message = error instanceof Error ? error.message : undefined;
+      let errorMessage = "Login failed. Please try again.";
+      const message = error instanceof Error ? error.message : String(error);
 
       if (message) {
         if (message.includes("Invalid login credentials")) {
@@ -63,6 +75,10 @@ export default function Login() {
           errorMessage = "Please verify your email address before logging in.";
         } else if (message.includes("User not found")) {
           errorMessage = "Account not found. Please sign up first.";
+        } else if (message.includes("Failed to fetch") || message.includes("NetworkError") || message.includes("network")) {
+          errorMessage = "Network error. Please check your internet connection.";
+        } else if (message.includes("timeout") || message.includes("Timeout")) {
+          errorMessage = "Connection timed out. Please try again.";
         } else {
           errorMessage = message;
         }
