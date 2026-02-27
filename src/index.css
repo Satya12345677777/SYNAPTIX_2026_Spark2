@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* OfflinePay Design System - PhonePe-inspired fintech theme */
+
+@layer base {
+  :root {
+    /* Core brand colors - Purple/Blue fintech palette */
+    --background: 0 0% 98%;
+    --foreground: 240 10% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
+
+    /* Primary - Deep Purple (PhonePe inspired) */
+    --primary: 263 70% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Light Purple */
+    --secondary: 263 30% 95%;
+    --secondary-foreground: 263 70% 35%;
+
+    /* Muted */
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 5% 45%;
+
+    /* Accent - Bright Blue */
+    --accent: 217 90% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success - Green for completed transactions */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Amber for pending */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Info - Blue for info states */
+    --info: 217 90% 60%;
+    --info-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 263 70% 50%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 10%;
+    --sidebar-primary: 263 70% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 263 30% 95%;
+    --sidebar-accent-foreground: 263 70% 35%;
+    --sidebar-border: 240 6% 90%;
+    --sidebar-ring: 263 70% 50%;
+
+    /* Wallet card gradients */
+    --wallet-gradient-start: 263 70% 50%;
+    --wallet-gradient-end: 217 90% 55%;
+  }
+
+  .dark {
+    /* Dark mode - Deep navy background */
+    --background: 240 15% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 240 15% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 15% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Primary - Brighter purple for dark mode */
+    --primary: 263 75% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 263 30% 20%;
+    --secondary-foreground: 263 50% 80%;
+
+    /* Muted */
+    --muted: 240 10% 18%;
+    --muted-foreground: 240 5% 60%;
+
+    /* Accent */
+    --accent: 217 90% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success */
+    --success: 142 70% 50%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning */
+    --warning: 38 92% 55%;
+    --warning-foreground: 0 0% 10%;
+
+    /* Info */
+    --info: 217 90% 65%;
+    --info-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 240 10% 20%;
+    --input: 240 10% 20%;
+    --ring: 263 75% 60%;
+
+    /* Sidebar */
+    --sidebar-background: 240 15% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 263 75% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 263 30% 20%;
+    --sidebar-accent-foreground: 263 50% 80%;
+    --sidebar-border: 240 10% 20%;
+    --sidebar-ring: 263 75% 60%;
+
+    /* Wallet card gradients */
+    --wallet-gradient-start: 263 75% 55%;
+    --wallet-gradient-end: 217 90% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer utilities {
+  /* Wallet card gradient */
+  .wallet-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--wallet-gradient-start)) 0%,
+      hsl(var(--wallet-gradient-end)) 100%
+    );
+  }
+
+  /* Glass effect for cards */
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: hsl(var(--card) / 0.8);
+  }
+
+  /* Status badges */
+  .status-online {
+    @apply bg-success text-success-foreground;
+  }
+
+  .status-offline {
+    @apply bg-destructive text-destructive-foreground;
+  }
+
+  .status-pending {
+    @apply bg-warning text-warning-foreground;
+  }
+
+  .status-completed {
+    @apply bg-success text-success-foreground;
+  }
+
+  .status-failed {
+    @apply bg-destructive text-destructive-foreground;
+  }
+
+  /* Safe area for mobile */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Animation utilities */
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
